@@ -10,7 +10,7 @@
 </head>
 
 <body>
-   <%= "You are looking at #{params[:stock][:abbreviation]}" %>
+   <h1><%= "You are listening to #{params[:stock][:abbreviation]}" %></h1>
    <%= link_to "Go Back", root_url %>
    <div class="values" style="visibility: hidden">
       <% @yahoos.each do |yahoo| %>

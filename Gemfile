@@ -22,6 +22,7 @@ gem 'nokogiri'
 # gem 'open-uri'
 # gem 'spf'
 gem 'yahoo-finance'
+# gem 'gruff'
 
 #may take this out
 # gem 'localtunnel'
