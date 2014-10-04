@@ -1,0 +1,7 @@
+<h1>Enter</h1>
+
+<%= form_for @stock, :url => url_for(:controller => 'homes', :action => 'show') do |f| %>
+   <p>Enter Stock</p>
+   <%= f.select :abbreviation, @all_stocks%>
+   <%= f.submit "Listen" %>
+<% end %>

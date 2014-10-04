@@ -1,0 +1,159 @@
+<head>
+  <%= javascript_include_tag 'p5.min.js' %>
+  <%= javascript_include_tag 'p5.gibber.min.js' %>
+
+  <%= stylesheet_link_tag 'examples.css'%>
+  <%= stylesheet_link_tag 'monokai_sublime.css'%>
+  <%= javascript_include_tag 'highlight.pack.js' %>
+
+
+</head>
+
+<body>
+   <%= "You are looking at #{params[:stock][:abbreviation]}" %>
+   <%= link_to "Go Back", root_url %>
+   <div class="values" style="visibility: hidden">
+      <% @yahoos.each do |yahoo| %>
+         <div class="symbol"><%= yahoo.symbol  %></div>
+         <div class="trade_date"><%= yahoo.trade_date  %></div>
+         <div class="open"><%= yahoo.open  %></div>
+         <div class="high"><%= yahoo.high  %></div>
+         <div class="low"><%= yahoo.low  %></div>
+         <div class="close"><%= yahoo.close  %></div>
+         <div class="volume"><%= yahoo.volume  %></div>
+         <div class="adjusted_close"><%= yahoo.adjusted_close  %></div>
+      <% end %>
+   </div>
+
+
+</body>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script charset="utf-8">
+   openElements = document.getElementsByClassName("values")[0].children;
+    tempCounter = -1;
+    tempArray = [];
+   //  array = [];
+
+    tradeDateArray = [];
+    openArray = [];
+    highArray = [];
+    lowArray = [];
+    volumeArray = [];
+    adjustedCloseArray = [];
+    closeArray = [];
+
+   //  for (i=0; i<openElements.length; i++) {
+   //     tempCounter=tempCounter+1;
+   //     tempArray.push(openElements[i].innerHTML);
+   //     if (tempCounter === 8) {
+   //        array.push(tempArray);
+   //        tempCounter = 0;
+   //        tempArray = [];
+   //     }
+   //  }
+    for (i=0; i<openElements.length; i++) {
+      tempCounter = tempCounter +1
+      switch(tempCounter) {
+          case 0:
+              break;
+          case 1:
+              tradeDateArray.push(openElements[i].innerHTML);
+              break;
+           case 2:
+             openArray.push(parseFloat(openElements[i].innerHTML));
+               break;
+            case 3:
+               highArray.push(openElements[i].innerHTML*10);
+             break;
+          case 4:
+             lowArray.push((openElements[i].innerHTML)/2.0);
+              break;
+           case 5:
+             volumeArray.push(openElements[i].innerHTML);
+               break;
+         case 6:
+            adjustedCloseArray.push(openElements[i].innerHTML*2);
+             break;
+          case 7:
+             closeArray.push(parseFloat(openElements[i].innerHTML)*2.0);
+              tempCounter = -1;
+              break;
+          default:
+
+        }
+    }
+
+   //  var canvas;
+
+
+function setup() {
+/* MiniMoog
+Presets: short, lead, winsome, bass, dark, dark2, easy, easyfx, noise
+*/
+
+// Instrument 1
+a = Mono('easy')
+    .play( openArray, 1/2 )
+    .resonance(1)
+    .detune2.seq(.005)
+    .detune3.seq(.01);
+
+a.amp(.8);
+
+// EFFECTS
+
+// reverb
+r = Reverb({ roomSize: Add( .25, Sine( .05, .245 )._ ) });
+
+// vibrato
+v = Vibrato({
+    rate:2
+    });
+
+// delay
+d = Delay({
+  time: 1000,
+  feedback: .5
+});
+
+a.fx.add(r, v, d);
+
+// Instrument 2
+b = Mono('dark2')
+    .play( closeArray, 1/4 )
+    .resonance(3)
+    .detune2.seq(.15)
+    .detune3.seq(0.01);
+b.amp(1.0);
+var randomize = random(1, 10);
+v_b = Vibrato({
+    rate: randomize
+    });
+d_b = Delay({
+  time: 5000,
+  feedback: .7
+});
+b.fx.add(v_b, d_b);
+
+// Instrument 3
+c = Mono('dark')
+    .play( lowArray, 1/2 )
+    .detune2.seq(.5)
+    .detune3.seq(0.01);
+c.amp(1.0);
+
+d_c = Delay({
+  time: 20000,
+  feedback: .5
+});
+c.fx.add(d_c);
+
+
+}
+
+
+function draw() {}
+
+</script>
