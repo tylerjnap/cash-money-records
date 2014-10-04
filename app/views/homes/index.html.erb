@@ -1,7 +1,10 @@
-<h1>Bored?  Listen to your favorite stocks!</h1>
+<div class="row">
+   <div class="col-xs-8 col-xs-offset-3"><h1>Bored?  Listen to your favorite stocks!</h1></div>
+</div>
 
 <%= form_for @stock, :url => url_for(:controller => 'homes', :action => 'show') do |f| %>
-   <p>Enter Stock</p>
-   <%= f.select :abbreviation, @all_stocks%>
-   <%= f.submit "Listen" %>
+   <div class="row">
+      <div class="col-xs-4 col-xs-offset-3"><%= f.select :abbreviation, @all_stocks%></div>
+      <div class="col-xs-2 btn"><%= f.submit "Listen" %></div>
+   </div>
 <% end %>
