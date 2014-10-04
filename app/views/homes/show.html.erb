@@ -11,10 +11,10 @@
 
 <body>
    <div class="row">
-      <div class="col-xs-8 col-xs-offset-3"><h1><%= "You are listening to #{params[:stock][:abbreviation]}" %></h1></div>
+      <div class="col-xs-7 col-xs-offset-3"><h1><%= "This is what #{params[:stock][:abbreviation]} sounded like this past year" %></h1></div>
    </div>
    <div class="row">
-      <div class="col-xs-8 col-xs-offset-3"><%= link_to "Go Back", root_url, :class => 'btn' %></div>
+      <div class="col-xs-7 col-xs-offset-3"><%= link_to "Go Back", root_url, :class => 'btn' %></div>
    </div>
    <div class="values" style="visibility: hidden">
       <% @yahoos.each do |yahoo| %>
